@@ -34,9 +34,9 @@ body {
 }
 
 .weather-temperature img {
-  margin-right: 10px;
+  margin-right: 50px;
   height: 64px;
-  width: 89px;
+  width: 75px;
 }
 .weather-temperature strong {
   color: #2f24c1;

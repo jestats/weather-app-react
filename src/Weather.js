@@ -1,12 +1,6 @@
 import React from "react";
 import "./Weather.css";
-
-<link
-  href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-  rel="stylesheet"
-  integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-  crossorigin="anonymous"
-/>;
+import Script from "./Script";
 
 export default function Weather() {
   let weatherData = {
@@ -24,7 +18,7 @@ export default function Weather() {
       <div className="container">
         <div className="w-wrap">
           <div className="weather-app">
-            <form id="search-form" class="mb-3">
+            <form id="search-form" className="mb-3">
               <div className="row">
                 <div className="col-6">
                   <input
@@ -40,12 +34,12 @@ export default function Weather() {
                   <input
                     type="submit"
                     value="Search"
-                    class="btn btn-primary w-100"
+                    className="btn btn-primary w-100"
                   />
                 </div>
                 <div className="col-2">
                   <button
-                    class="btn btn-success w-100"
+                    className="btn btn-success w-100"
                     id="current-location-button"
                   >
                     Current
@@ -63,23 +57,23 @@ export default function Weather() {
                 <li id="description">{weatherData.time}</li>
               </ul>
             </div>
-            <div class="row">
-              <div class="col-9">
-                <div class="clearfix weather-temperature">
+            <div className="row">
+              <div className="col-9">
+                <div className="clearfix weather-temperature">
                   <img
                     src={weatherData.imgUrl}
                     alt={weatherData.description}
                     id="icon"
-                    class="float-left"
-                    width="75"
+                    className="float-left"
+                    width="55"
                   />
-                  <div class="float-left">
+                  <div className="float-left">
                     <strong id="temperature">{weatherData.temperature}</strong>
-                    <span class="units">
-                      <a href="#" id="celsius-link" class="active">
+                    <span className="units">
+                      <a href="/" id="celsius-link" className="active">
                         °C |
                       </a>
-                      <a href="#" id="fahrenheit-link" class="active">
+                      <a href="/" id="fahrenheit-link" className="active">
                         °F
                       </a>
                     </span>
