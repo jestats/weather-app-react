@@ -1,5 +1,6 @@
 import React from "react";
 import "./Weather.css";
+import Functions from "./Functions";
 
 export default function Weather() {
   let weatherData = {
@@ -12,6 +13,7 @@ export default function Weather() {
     humidity: 5,
     wind: 7,
   };
+
   return (
     <div>
       <div className="container">
