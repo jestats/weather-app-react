@@ -1,6 +1,5 @@
 import React from "react";
 import "./Weather.css";
-import Functions from "./Functions";
 
 export default function Weather() {
   let weatherData = {
