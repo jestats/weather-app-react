@@ -1,31 +1,25 @@
-import "./App.css";
-import Weather from "./Weather";
 import React from "react";
-import "./Weather.css";
+import Weather from "./Weather";
+import "./App.css";
 
 export default function App() {
   return (
     <div className="App">
-      <header className="App-header">
+      <div className="container">
+        Weather App
         <Weather />
-
-        <div className="Name">
-          <small>
-            <span>Open-source coded by Jescinta Thompson</span>
-            <a
-              href="https://www.linkedin.com/in/jescinta/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img
-                src="https://brandlogos.net/wp-content/uploads/2016/06/linkedin-logo.png"
-                alt="LinkedIn logo"
-                width="27"
-              />
-            </a>
-          </small>
-        </div>
-      </header>
+        <footer>
+          This code is {""}
+          <a
+            href="https://github.com/jestats/weather-app-react"
+            target="_blank"
+          >
+            open-sourced
+          </a>{" "}
+          and coded by Jescinta Thompson
+        </footer>
+        ;
+      </div>
     </div>
   );
 }

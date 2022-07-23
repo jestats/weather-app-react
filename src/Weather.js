@@ -1,102 +1,79 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Weather.css";
+import axios from "axios";
 
 export default function Weather() {
-  let weatherData = {
-    city: "San Francisco, CA",
-    temperature: 77,
-    day: "Monday",
-    imgUrl: "http://openweathermap.org/img/wn/01d@2x.png",
-    time: "15:29",
-    description: "Sunny",
-    humidity: 5,
-    wind: 7,
-  };
+  const [ready, setReady] = useState(false);
+  const [temperature, setTemperature] = useState(null);
+  function handleResponse(response) {
+    console.log(response.data);
+    setTemperature(response.data.main.temp);
+  }
 
-  return (
-    <div>
-      <div className="container">
-        <div className="w-wrap">
-          <div className="weather-app">
-            <form id="search-form" className="mb-3">
-              <div className="row">
-                <div className="col-6">
-                  <input
-                    type="search"
-                    placeholder="Search for a city"
-                    autocomplete="off"
-                    autofocus="on"
-                    className="form-control"
-                    id="city-input"
-                  />
-                </div>
-                <div className="col-2">
-                  <input
-                    type="submit"
-                    value="Search"
-                    className="btn btn-primary w-100"
-                  />
-                </div>
-                <div className="col-2">
-                  <button
-                    className="btn btn-success w-100"
-                    id="current-location-button"
-                  >
-                    Current
-                  </button>
-                </div>
-              </div>
-            </form>
-
-            <div className="overview">
-              <h1 id="city">{weatherData.city}</h1>
-              <ul>
-                <li>
-                  Last updated: <span id="date">{weatherData.day}</span>
-                </li>
-                <li id="description">{weatherData.time}</li>
-              </ul>
+  if (ready) {
+    return (
+      <div className="Weather">
+        <form>
+          <div className="row">
+            <div className="col-6">
+              <input
+                type="search"
+                placeholder="Enter a city..."
+                className="form-control"
+                autoFocus="on"
+              />
             </div>
-            <div className="row">
-              <div className="col-9">
-                <div className="clearfix weather-temperature">
-                  <img
-                    src={weatherData.imgUrl}
-                    alt={weatherData.description}
-                    id="icon"
-                    className="float-left"
-                    width="55"
-                  />
-                  <div className="float-left">
-                    <strong id="temperature">{weatherData.temperature}</strong>
-                    <span className="units">
-                      <a href="/" id="celsius-link" className="active">
-                        °C |
-                      </a>
-                      <a href="/" id="fahrenheit-link" className="active">
-                        °F
-                      </a>
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div className="col-3">
-                <ul>
-                  <li className="Descript">
-                    Humidity: {weatherData.humidity}
-                    <span id="humidity"></span>%
-                  </li>
-                  <li className="Descript">
-                    Wind: {weatherData.wind}
-                    <span id="wind"></span> km/h
-                  </li>
-                </ul>
+            <div className="col-3">
+              <input
+                type="submit"
+                placeholder="Search"
+                className="btn btn-primary w-100"
+              />
+            </div>
+            <div className="col-3">
+              <input
+                type="submits"
+                placeholder="Current"
+                className="btn btn-primary w-100"
+              />
+            </div>
+          </div>
+        </form>
+        <h1>San Francisco, CA</h1>
+        <ul>
+          <li>Monday 7:41 p.m.</li>
+          <li>Sunny</li>
+        </ul>
+        <div className="row mt-3">
+          <div className="col-6">
+            <div className="clearfix">
+              <img
+                src="https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png"
+                alt="Mostly Cloudy"
+                className="float-left"
+              />
+              <div className="float-left">
+                <span className="Temperature">{Math.round(temperature)}</span>
+                <span className="Units">°F | °C </span>
               </div>
             </div>
-            <div className="weather-forecast" id="forecast"></div>
+          </div>
+          <div className="col-6">
+            <ul>
+              <li>Precipitation: 15%</li>
+              <li>Humidity: 72%</li>
+              <li>Wind: 13 km/h%</li>
+            </ul>
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    const apiKey = "2a2eb7984c02aca7e1add2c64025b4ae";
+    let city = "San Francisco";
+    let apiUrl = `http://api.openweathermao.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
+    axios.get(apiUrl).then(handleResponse);
+
+    return "Getting your weather..";
+  }
 }
