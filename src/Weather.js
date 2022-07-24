@@ -8,6 +8,7 @@ export default function Weather() {
   function handleResponse(response) {
     console.log(response.data);
     setTemperature(response.data.main.temp);
+    setReady(true);
   }
 
   if (ready) {
@@ -69,11 +70,13 @@ export default function Weather() {
       </div>
     );
   } else {
-    const apiKey = "2a2eb7984c02aca7e1add2c64025b4ae";
     let city = "San Francisco";
+    const apiKey = "30fdfef4758c3c1aaa63ad9e51343319";
+
     let apiUrl = `http://api.openweathermao.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
     axios.get(apiUrl).then(handleResponse);
 
+    console.log(apiUrl);
     return "Getting your weather..";
   }
 }
