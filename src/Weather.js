@@ -4,11 +4,20 @@ import axios from "axios";
 
 export default function Weather() {
   const [ready, setReady] = useState(false);
-  const [temperature, setTemperature] = useState(null);
+  const [weatherData, setWeatherData] = useState({ ready: false });
   function handleResponse(response) {
     console.log(response.data);
-    setTemperature(response.data.main.temp);
-    setReady(true);
+    setWeatherData({
+      ready: true,
+      temperature: response.data.main.temp,
+      date: "Saturday 08:08pm",
+      humidity: response.data.main.humidity,
+      wind: response.data.wind.speed,
+      city: response.data.name,
+      description: response.data.weather[0].description,
+      iconUrl: "https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png",
+    });
+    setReady(weatherData.ready);
   }
 
   if (ready) {
@@ -32,29 +41,32 @@ export default function Weather() {
               />
             </div>
             <div className="col-3">
-              <input
-                type="submits"
-                placeholder="Current"
-                className="btn btn-primary w-100"
-              />
+              <button
+                class="btn btn-success w-100"
+                id="current-location-button"
+              >
+                Current
+              </button>
             </div>
           </div>
         </form>
-        <h1>San Francisco, CA</h1>
+        <h1>{weatherData.city}</h1>
         <ul>
-          <li>Monday 7:41 p.m.</li>
-          <li>Sunny</li>
+          <li>{weatherData.date} </li>
+          <li className="text-capitalize">{weatherData.description}</li>
         </ul>
         <div className="row mt-3">
           <div className="col-6">
             <div className="clearfix">
               <img
-                src="https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png"
-                alt="Mostly Cloudy"
+                src={weatherData.iconUrl}
+                alt={weatherData.description}
                 className="float-left"
               />
               <div className="float-left">
-                <span className="Temperature">{Math.round(temperature)}</span>
+                <span className="Temperature">
+                  {Math.round(weatherData.temperature)}
+                </span>
                 <span className="Units">°F | °C </span>
               </div>
             </div>
@@ -62,8 +74,8 @@ export default function Weather() {
           <div className="col-6">
             <ul>
               <li>Precipitation: 15%</li>
-              <li>Humidity: 72%</li>
-              <li>Wind: 13 km/h%</li>
+              <li>Humidity:{weatherData.humidity}%</li>
+              <li>Wind:{weatherData.wind} km/h%</li>
             </ul>
           </div>
         </div>
@@ -72,10 +84,8 @@ export default function Weather() {
   } else {
     let city = "San Francisco";
     const apiKey = "30fdfef4758c3c1aaa63ad9e51343319";
-
-    let apiUrl = `http://api.openweathermao.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
     axios.get(apiUrl).then(handleResponse);
-
     console.log(apiUrl);
     return "Getting your weather..";
   }
