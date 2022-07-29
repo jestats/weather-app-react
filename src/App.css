@@ -1,7 +1,8 @@
 .App {
   max-width: 900px;
   margin: 30px auto;
-  color: gray;
+  color: black;
+  background: lightblue;
 }
 .App footer {
   font-size: 11px;

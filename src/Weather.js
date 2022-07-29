@@ -63,6 +63,7 @@ export default function Weather(props) {
                 type="submit"
                 value="Current"
                 className="btn btn-success w-100"
+                id="current-location-button"
               />
             </div>
           </div>
